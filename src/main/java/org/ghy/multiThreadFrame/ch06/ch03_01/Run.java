@@ -16,15 +16,15 @@ public class Run {
                 completionService.submit(new Callable() {
                     @Override
                     public Object call() throws Exception {
-                    long sleepValue = (int)(Math.random()*1000);
-                    System.out.println("sleep="+sleepValue+" "+Thread.currentThread().getName());
-                    Thread.sleep(sleepValue);
+                        long sleepValue = (int)(Math.random()*1000);
+                        System.out.println("sleep="+sleepValue+" "+Thread.currentThread().getName());
+                        Thread.sleep(sleepValue);
                         return "高洪岩"+sleepValue+" "+Thread.currentThread().getName();
                     }
                 });
             }
             for (int i = 0; i < 10; i++) {
-                //CompletionService包装了executorService,take()实现了先完成的任务优先返回
+                //CompletionService包装了executorService,take()实现了优先返回先执行完成的任务
                 System.out.println(completionService.take().get());
             }
         } catch (InterruptedException e) {
@@ -36,24 +36,3 @@ public class Run {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
