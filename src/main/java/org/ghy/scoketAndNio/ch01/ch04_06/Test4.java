@@ -2,6 +2,7 @@ package org.ghy.scoketAndNio.ch01.ch04_06;
 
 import java.nio.ByteBuffer;
 
+//put(byte[] src)的含义
 public class Test4 {
     public static void main(String[] args) {
         byte[] byteArray = new byte[]{3,4,5,6,7,8};
