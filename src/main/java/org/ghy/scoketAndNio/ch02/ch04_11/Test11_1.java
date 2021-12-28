@@ -11,7 +11,7 @@ public class Test11_1 {
         FileChannel fileChannel1 = fileA.getChannel();
         FileChannel fileChannel2 = fileB.getChannel();
         fileChannel2.position(8);
-        //给定的位置大于fileChannel1的大小,不传输任何字节
+        //从fileChannel1传输到fileChannel2,position位置为调用该方法对象的位置, 给定的位置大于fileChannel1的大小,不传输任何字节
         fileChannel1.transferTo(1000,4,fileChannel2);
         fileChannel1.close();
         fileChannel2.close();

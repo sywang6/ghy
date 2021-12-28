@@ -11,7 +11,7 @@ public class Test11_4 {
         FileChannel fileChannel1 = fileA.getChannel();
         FileChannel fileChannel2 = fileB.getChannel();
         System.out.println("A position="+fileChannel2.position());
-        //fileChannel1有足够的字节,传输5个字节到fileChannel2
+        //fileChannel1有足够的字节,从position位置开始传输5个字节到fileChannel2
         fileChannel1.transferTo(1,5,fileChannel2);
         System.out.println("B position="+fileChannel2.position());
         fileChannel1.close();
