@@ -25,6 +25,8 @@ public class ClassLoaderTest {
         Object obj = myLoader.loadClass("org.zzm.jvmbook.ch07.ch04_01.ClassLoaderTest").newInstance();
         System.out.println(obj.getClass().getName());
         System.out.println(obj instanceof org.zzm.jvmbook.ch07.ch04_01.ClassLoaderTest);
+        System.out.println(obj.getClass().hashCode());
+        System.out.println(ClassLoaderTest.class.hashCode());
         //输出:
         //org.zzm.jvmbook.ch07.ch04_01.ClassLoaderTest
         //false

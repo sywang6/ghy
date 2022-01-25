@@ -1,0 +1,86 @@
+字节码,字节码,一个指令只占一个字节,最多只能有256个指令,如果为每个类型(8大基本类型+1个引用类型)都分配一个指令,肯定不够用.
+虚拟机采取的办法也很简单,并非每种数据类型和每一种操作都有对应的指令.有一些指令可以在必要的时候用来将一些不支持的类型转换为可被支持的类.
+举个例子load操作,有iload(load int类型),lload(load long类型),fload(load float类型)指令,却没有bload(load byte类型)指令.
+但是load byte类型可以使用iload执行,在举一个类型, 没有任何指令是操作boolean类型的,boolean类型都是当做int类型来处理的,查看int相关的
+指令即可.
+
+1.加载和存储指令
+.将一个局部变量加载到操作栈:load...
+.将一个数值从操作数栈存储到局部变量表: store...
+.将一个常量加载到操作数栈: bipush,sipush,aconst_null...
+.扩展局部变量表访问索引的指令:wide
+
+2.运算指令
+运算指令大体上分为两类:对整数数据进行运算的指令和与对浮点数型数据进行运算的指令.
+加法指令:iadd,ladd,fadd,dadd.减法指令:isub,lsub,fsub,dsub.乘法指令:imul,lmul,fmul,dmul.
+除法指令:idiv,ldiv,fdiv,ddiv.求余指令:irem,lrem,frem,drem.
+取反指令:ineg,lneg,fneg,dneg.移位指令:ishl,ishr,iushr,lshl,lshr,lushr.
+按位或指令:ior,lor.按位与指令:iand,land.按位异或指令:ixor,lxor.局部变量自增指令:iinc
+比较指令:dcmpg,dcmpl,fcmpg,fcmpl,lcmp
+note:只有当整数的除法指令(idiv,ldiv)和求余指令(irem,lrem)的除数为0的时候,虚拟机才会抛出ArithmeticException异常,其他任何情况下都不会出现异常.
+测试代码在:org.zzm.jvmbook.ch06.ch04.FloatDiv
+
+3.类型转换指令
+宽化类型处理,无需显式的转换指令.
+int -> long,float,double
+long->float,double
+float->double
+窄化类型转换:
+整数类型 -> 整数类型. 直接截取最低的N位 i2b,i2c,i2s,l2i
+浮点类型 -> int,long,f2i,f2l,d2i,d2l.1)浮点值是NAN -> 0 2)不是无穷大,IEEE754的向零舍入模式取整得到v,v在目标类型范围之内
+                    返回v,v不在目标范围之内,根据v的符号,返回v的最大或最小整数
+double -> float,d2f.IEEE754向最接近数舍入得到一个float类型表示的数字.1)转换结果的绝对值太小 -> 正负0.2)绝对值太大 -> 正负无穷大.3)double的NAN -> float的NAN
+
+4.对象创建与访问指令
+.创建类实例的指令:new
+.创建数组的指令:newarrary,anewarray,multianewarray
+.访问类字段(static字段)和实例字段(非static字段)的指令: getfield,putfield,getstatic,putstatic
+.把一个数组元素加载到操作数栈的指令:baload,caload,saload,iaload,laload,faload,daload,aaload
+.将一个操作数栈的值存储到数组元素中的指令:bastore,castore,satore,iastore,fastore,datore,aastore
+.取数组长度的指令:arraylength
+.检查类实例类型的指令:instanceof,checkcast
+
+
+5.操作数栈管理指令
+.将操作数栈的栈顶一个或两个元素出栈:pop,pop2
+.复制栈顶一个或两个数值并将复制值或双份的复制值重新压入栈顶:dup,dup2,dup_xl,dup2_xl,dup_x2,dup2_x2
+.将栈最顶端的两个数值互换:swap
+
+6.控制转移指令
+.条件分支:ifeq,iflt,ifle,ifne,ifgt,ifge,ifnull,ifnonnull,if_icmpeq,if_icmpne,if_icmplt,
+        if_icmpgt,if_icple,if_icmple,if_icmpge,if_acmpeq,if_acmpne
+.复合条件分支:tableswitch,lookupswitch
+.无条件分支:goto,goto_w,jsr,jsr_w,ret
+
+7.方法调用和返回指令
+.invokevirtual指令:用于调用对象的实例方法,根据对象的实际类型进行分派(虚方法分派),这也是java语言中最常见的方法分派方式.
+.invokeinterface指令:用于调用接口方法,它会在运行时搜索一个实现了这个接口方法的对象,找出适合的方法进行调用.
+.invokespecial指令:用于调用一些需要特殊处理的实例方法,包括实例初始化方法,私有方法和父类方法.
+.invokestatic指令:用于调用类静态方法(static方法)
+.invokedynamic指令:用于在运行时动态解析出调用点限定符所引用的方法.并执行该方法.前面四条调用指令的分派逻辑都固化在Java虚拟机内部,用户无法改变,
+                   而invikedynamic指令的分派逻辑是由用户所设定的引导方法绝定的.
+返回指令: ireturn,lreturn,freturn,dreturn,areturn.另外还有一条return指令供声明为void的方法,实例初始化方法,类和接口的类初始化方法使用.
+
+8.异常处理指令
+.抛出异常.1)athrow指令.对应throw语句  2)运行时异常,比如整数运算中,当除数为0时,虚拟机会在idiv和ldiv指定中抛出ArithmeticException异常
+.处理异常.catch语句,采样异常表来完成(很久之前使用jsr和ret指令,现在已经不用了).
+
+9.同步指令.
+.方法级的同步,方法结构表中的ACC_SYNCHRONIZED方法标志
+.方法内部一段指令序列的同步: monitorenter和monitorexit指令
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

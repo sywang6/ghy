@@ -1,6 +1,9 @@
+note:本文为手工翻译二进制字节码文件,旨在学习class文件的结构.等属性之后可以借助
+javap工具分析class文件
+
 00000000  0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
 00000010 ca fe ba be 00 00 00 34 00 16 0a 00 04 00 12 09
-		 ca fe ba be 
+		 ca fe ba be-魔数,表明这是一个class文件.cafe babe-翻译过来是咖啡宝贝,充满了浪漫气息 
 					00	00-小版本 
 						   00 34-十进制,大版本对应java8
 								 00 16-22减1个常量
@@ -93,14 +96,66 @@
 										  00 02-access_flags,ACC_PRIVATE,字段是private
 												00 05-name_index,符号常量池索引#2
 00000120 06 00 00 00 02 00 01 00 07 00 08 00 01 00 09 00
-	  00 06-descriptor_index属性描述符,符号常量池索引#5 
+	  00 06-descriptor_index属性描述符,符号常量池索引#5,m 
 			00 00-attributes_count的个数为0	
 				  00 02-methods_count,2个方法 	
+						00 01-access_flags,public
+							  00 07-name_index,常量池索引#7,<init>
+									00 08-方法描述符,()V
+										  00 01-attributes_count,<init>方法有一个属性
+												00 09-常量池索引#9,Code属性
 00000130 00 00 2f 00 01 00 01 00 00 00 05 2a b7 00 01 b1
+	  00 00 00 2f-属性长度,47
+				  00 01-max_stack,1
+						00 01-max_loacl,1
+							  00 00 00 05-code_length,5个字节码指令
+										  2a b7 00 01 b1-具体的5个字节码指令,详情参考后面章节
 00000140 00 00 00 02 00 0a 00 00 00 06 00 01 00 00 00 03
+		 00 00-异常信息,可以理解为方法的try-catch信息
+			   00 02-code附带的属性个数,2个
+			         00 0a-常量池索引#10,LineNumberTable属性
+						   00 00 00 06-属性长度,6个字节
+									   00 01-Line_Number_info个数,1
+											 00 00 00 03-字节码行号0对应源码行号3	
 00000150 00 0b 00 00 00 0c 00 01 00 00 00 05 00 0c 00 0d
+         00 0b-LocalVariableTable属性
+		       00 00 00 0c-LocalVariableTable属性长度12
+			               00 01-Local_Variable_info个数,1
+								 00 00-start_pc
+									   00 05-覆盖的长度
+											 00 0c-name_index,常量池索引#12,this
+											       00 0d-字段描述符,常量池索引#13,Lorg/zzm/jvmbook/ch06/ch03_01/TestClass;
 00000160 00 00 00 01 00 0e 00 0f 00 01 00 09 00 00 00 31
+		 00 00-变量槽的位置0,至此第一个方法已经全部解析完成,接下来的字节为另外一个方法
+		       00 01-方法的access_flags,public
+					 00 0e-name_index,常量池索引#14,inc
+						   00 0f-方法描述符,常量池索引#15,()I
+							     00 01-方法附带一个属性
+									   00 09-方法附带属性的名称,常量池索引#9,Code 	
+											 00 00 00 31-code属性长度,49 	
 00000170 00 02 00 01 00 00 00 07 2a b4 00 02 04 60 ac 00
+		 00 02-max_stack,2
+			   00 01-max_loacl,1
+					 00 00 00 07-code_length,7个字节码指令
+								 2a b4 00 02 04 60 ac-7个字节码指令,详情参考后面章节	
 00000180 00 00 02 00 0a 00 00 00 06 00 01 00 00 00 06 00
+	  00 00-异常信息,可以理解为方法的try-catch信息
+            00 02-code附带的属性,2个方法
+                  00 0a-常量池索引#10,LineNumberTable属性	
+						00 00 00 06-属性长度,6个字节
+						            00 01-Line_Number_info个数,1
+									     00 00 00 06-字节码行号0对应源码行号6 
 00000190 0b 00 00 00 0c 00 01 00 00 00 07 00 0c 00 0d 00
+	  00 0b-LocalVariableTable属性
+	  00 00 00 0c-LocalVariableTable属性长度12
+						00 01-Local_Variable_info个数,1
+							  00 00-start_pc
+									00 05-覆盖的长度
+										  00 0c-name_index,常量池索引#12,this
+											    00 0d-字段描述符,常量池索引#13,Lorg/zzm/jvmbook/ch06/ch03_01/TestClass;
 000001a0 00 00 01 00 10 00 00 00 02 00 11  
+	  00 00-变量槽的位置0,至此第二个方法解析完成
+      	    00 01-attributes_count总数,1个
+				  00 10-SourceFile属性	
+						00 00 00 02-SourceFile属性长度
+									 00 11-常量池索引#17,TestClass.java
