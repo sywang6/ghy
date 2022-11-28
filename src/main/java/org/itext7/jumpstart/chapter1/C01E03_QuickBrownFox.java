@@ -36,9 +36,9 @@ public class C01E03_QuickBrownFox {
         // Compose Paragraph
         Image fox = new Image(ImageDataFactory.create(FOX));
         Image dog = new Image(ImageDataFactory.create(DOG));
-        Paragraph p = new Paragraph("The quick brown ")
+        Paragraph p = new Paragraph("The quick brown ").setFontSize(12)
                 .add(fox)
-                .add(" jumps over the lazy ")
+                .add(" jumps over the lazy ").setFontSize(9)
                 .add(dog);
         // Add Paragraph to document
         document.add(p);

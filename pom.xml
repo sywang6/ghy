@@ -59,8 +59,53 @@
       <type>pom</type>
     </dependency>
 
-  </dependencies>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>fr.opensagres.xdocreport</groupId>
+      <artifactId>xdocreport</artifactId>
+      <version>2.0.2</version>
+    </dependency>
 
+    <dependency>
+      <groupId>com.documents4j</groupId>
+      <artifactId>documents4j-local</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.documents4j</groupId>
+      <artifactId>documents4j-transformer-msoffice-word</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+
+   <dependency>
+      <groupId>com.aspose</groupId>
+      <artifactId>aspose-words</artifactId>
+      <version>22.11</version>
+      <classifier>jdk17</classifier>
+    </dependency>
+    <!--
+   <dependency>
+     <groupId>com.aspose</groupId>
+     <artifactId>aspose-words</artifactId>
+     <version>22.11</version>
+     <classifier>javadoc</classifier>
+   </dependency>-->
+
+    <dependency>
+      <groupId>org.javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.26.0-GA</version>
+    </dependency>
+  </dependencies>
   <build>
   <resources>
     <resource>
@@ -115,4 +160,11 @@
       </plugins>
     </pluginManagement>
   </build>
+  <repositories>
+    <repository>
+      <id>AsposeJavaAPI</id>
+      <name>Aspose Java API</name>
+      <url>https://releases.aspose.com/java/repo/</url>
+    </repository>
+  </repositories>
 </project>

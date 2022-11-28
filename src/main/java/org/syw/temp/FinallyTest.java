@@ -14,6 +14,7 @@ public class FinallyTest {
             i = 10;
             return i;
         }finally {
+            System.out.println("---");
             i =3;
         }
     }
