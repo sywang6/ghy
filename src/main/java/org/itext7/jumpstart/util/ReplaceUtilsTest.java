@@ -13,8 +13,8 @@ public class ReplaceUtilsTest {
     public static void main(String[] args) throws IOException {
         OverTextDTO overTextDTO = new OverTextDTO();
         Map<String,String> map = new HashMap<>();
-        map.put("88TH","89TH");
-        map.put("88th","89th");
+        map.put("88TH","");
+        map.put("88th","");
         overTextDTO.setSourceFilePath(AabsolutePath.PROJECT_ROOR_PATH +"src/main/resources/pdf/88th_noms_announcement.pdf");
         overTextDTO.setFinishFilePath(AabsolutePath.PROJECT_ROOR_PATH + "results/util/89th_noms_announcement.pdf");
         overTextDTO.setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA));

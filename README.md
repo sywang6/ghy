@@ -5,7 +5,7 @@ java编程读书笔记,按作者/书名/章节组织目录,内容涵盖书中的
 ## Java并发编程:核心方法与框架 978-7-111-53521-8 2016.5
 # 周志明
 ## 深入理解Java虚拟机：JVM高级特性与最佳实践（第3版） 978-7-111-64124-7
-# Budi Kurniawan/Pual Deck(著) 曹旭东(译)
-## How Tomcat Works A Guide to Developing Your Own Java Servlet Container 深入剖析Tomcat
+# Budi Kurniawan/Pual Deck 
+## How Tomcat Works A Guide to Developing Your Own Java Servlet Container 深入剖析Tomcat 曹旭东(译)
 # 注意事项
 ## lib目录下的xercesImpl.jar与jdk中的rt.jar包有冲突,不要将xercesImpl.jar加入构建依赖

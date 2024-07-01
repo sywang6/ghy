@@ -59,7 +59,7 @@
       <type>pom</type>
     </dependency>
 
-    <dependency>
+  <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
       <version>4.1.2</version>
@@ -153,10 +153,10 @@
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
         </plugin>
-        <plugin>
+  <!--      <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
-        </plugin>
+        </plugin>-->
       </plugins>
     </pluginManagement>
   </build>
